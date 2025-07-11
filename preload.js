@@ -1,6 +1,7 @@
-// preload.js
 (function preloadUsers() {
-  if (localStorage.getItem("preloaded") === "true") return;
+  const preloadVersion = "v2"; // change this when you update users
+
+  if (localStorage.getItem("preload_version") === preloadVersion) return;
 
   const accounts = [
     {
@@ -202,5 +203,5 @@
   ];
 
   localStorage.setItem("accounts", JSON.stringify(accounts));
-  localStorage.setItem("preloaded", "true");
+  localStorage.setItem("preload_version", preloadVersion); // ✅ use version instead of boolean
 })();
