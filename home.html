@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SafeSaw Bank Dashboard</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f4f6f9;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      background-color: #002147;
+      padding: 1rem 2rem;
+    }
+
+    .navbar-brand {
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    .nav-link {
+      color: #fff !important;
+      margin-left: 1.5rem;
+      font-size: 1rem;
+    }
+
+    .nav-link:hover {
+      color: #ffc107 !important;
+    }
+
+    .about-section {
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .about-section h2 {
+      font-size: 2rem;
+      color: #002147;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .about-section p {
+      font-size: 1.05rem;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .dashboard {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin: 2vh auto 5vh;
+      max-width: 1000px;
+      padding: 0 2rem;
+    }
+
+    .card-btn {
+      width: 220px;
+      height: 140px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .card-btn i {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #002147;
+    }
+
+    .card-btn span {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #002147;
+    }
+
+    .card-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+
+  <!-- 🔒 Redirect if not logged in -->
+  <script>
+    if (localStorage.getItem("loggedIn") !== "true") {
+      window.location.href = "login.html";
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">🏦 SafeSaw Bank</a>
+    <div class="ms-auto d-flex">
+      <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Home</a>
+      <a class="nav-link" href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+  </nav>
+
+  <!-- About Section -->
+  <div class="about-section">
+    <h2>Welcome to SafeSaw Bank</h2>
+    <p>
+      At SafeSaw Bank, we believe in delivering secure, reliable, and customer-friendly banking services.
+      Our mission is to empower individuals and businesses through smart financial solutions, digital innovation,
+      and trust. Whether you're opening your first account or applying for a loan, you're in safe hands with SafeSaw.
+    </p>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard">
+    <a href="open_account.html" class="card-btn">
+      <i class="fas fa-user-plus"></i>
+      <span>Open Account</span>
+    </a>
+
+    <a href="applyloan.html" class="card-btn">
+      <i class="fas fa-hand-holding-usd"></i>
+      <span>Apply Loan</span>
+    </a>
+
+    <a id="profileLink" href="#" class="card-btn">
+      <i class="fas fa-user-circle"></i>
+      <span>Profile View</span>
+    </a>
+
+    <a href="balance.html" class="card-btn">
+      <i class="fas fa-wallet"></i>
+      <span>Balance Enquiry</span>
+    </a>
+  </div>
+
+  <!-- Script -->
+  <script>
+    // Set profile view link
+    const userId = localStorage.getItem("userId");
+    const profileLink = document.getElementById("profileLink");
+
+    if (userId !== null) {
+      profileLink.href = `profile.html?id=${userId}`;
+    } else {
+      profileLink.href = "login.html";
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedIn");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("currentUserId");
+      window.location.href = "login.html";
+    }
+  </script>
+
+</body>
+</html>
