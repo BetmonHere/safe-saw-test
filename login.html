@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login | SAFE SAW INTERNATIONAL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <script src="preload.js"></script> <!-- ✅ Include preload data -->
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .login-card {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    .login-title {
+      font-weight: 600;
+      color: #003366;
+      margin-bottom: 10px;
+    }
+    .btn-primary {
+      background-color: #003366;
+      border-color: #003366;
+    }
+    .btn-primary:hover {
+      background-color: #002244;
+      border-color: #002244;
+    }
+    .form-label {
+      font-weight: 500;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo i {
+      font-size: 40px;
+      color: #003366;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    <div class="logo">
+      <i class="fas fa-university"></i>
+    </div>
+    <h2 class="text-center login-title">SAFE SAW INTERNATIONAL</h2>
+
+    <form onsubmit="return loginRedirect(event)">
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+        <input type="text" name="username" class="form-control" placeholder="Enter your username" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+      <div class="text-center">
+        <a href="forgot.html" class="text-decoration-none me-2">Forgot Password?</a>
+        <span class="text-muted">|</span>
+        <a href="register.html" class="text-decoration-none ms-2">Register</a>
+      </div>
+    </form>
+  </div>
+
+<script>
+function loginRedirect(event) {
+  event.preventDefault();
+
+  const inputUsername = document.querySelector('[name="username"]').value.trim().toLowerCase();
+  const inputPassword = document.querySelector('[name="password"]').value;
+
+  const accounts = JSON.parse(localStorage.getItem("accounts")) || [];
+  const userData = JSON.parse(localStorage.getItem("userData"));
+
+  // 🚨 Simulated SQL Injection Bypass
+  const isSQLi = inputUsername.includes("'") || inputUsername.includes("or 1=1") || inputUsername.includes("--");
+
+  if (isSQLi && accounts.length > 0) {
+    const randomIndex = Math.floor(Math.random() * accounts.length);
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("userId", randomIndex.toString());
+    localStorage.setItem("currentUserId", randomIndex.toString());
+    window.location.href = "index.html";
+    return false;
+  }
+
+  // 🔐 Normal Login
+  if (userData && inputUsername === userData.username.toLowerCase() && inputPassword === userData.password) {
+    const userIndex = accounts.findIndex(acc => acc.email === userData.email);
+    const id = userIndex !== -1 ? userIndex.toString() : "0";
+
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("userId", id);
+    localStorage.setItem("currentUserId", id);
+    window.location.href = "index.html";
+  } else {
+    alert("❌ Invalid username or password.");
+  }
+
+  return false;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Logging Out | SafeSaw Bank</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .message-box {
+      background-color: #fff;
+      padding: 3rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      max-width: 500px;
+    }
+
+    .message-box h1 {
+      color: #002147;
+      margin-bottom: 1rem;
+    }
+
+    .message-box p {
+      color: #444;
+      font-size: 1.1rem;
+    }
+
+    .message-box i {
+      color: #002147;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="message-box">
+    <i class="fas fa-sign-out-alt"></i>
+    <h1>You've been logged out</h1>
+    <p>Redirecting you to login page...</p>
+  </div>
+
+  <script>
+    // Clear login data
+    localStorage.removeItem("loggedIn");
+
+    // Redirect after 3 seconds
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 3000);
+  </script>
+
+</body>
+</html>
